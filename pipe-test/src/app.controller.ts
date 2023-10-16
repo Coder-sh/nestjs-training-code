@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Get,
@@ -11,10 +12,14 @@ import {
   ParseFloatPipe,
   ParseIntPipe,
   ParseUUIDPipe,
+  Post,
   Query,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AaaPipe } from './aaa.pipe';
+import { Ooo } from './ooo.dto';
+import { MyValidationPipe } from './my-validation.pipe';
+import { Ppp } from './ppp.dto';
 
 enum Ggg {
   AAA = '111',
@@ -110,5 +115,15 @@ export class AppController {
   @Get('nnn/:bbb')
   nnn(@Query('aaa', AaaPipe) aaa: string, @Param('bbb', AaaPipe) bbb: number) {
     return aaa + bbb;
+  }
+
+  @Post('ooo')
+  ooo(@Body(MyValidationPipe) obj: Ooo) {
+    console.log(obj);
+  }
+
+  @Post('ppp')
+  ppp(@Body() post: Ppp) {
+    console.log(post);
   }
 }
